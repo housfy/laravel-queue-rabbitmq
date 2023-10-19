@@ -1,12 +1,12 @@
 <?php
 
-namespace VladimirYuldashev\LaravelQueueRabbitMQ\Tests\Functional;
+namespace Housfy\LaravelQueueRabbitMQ\Tests\Functional;
 
 use Exception;
 use PhpAmqpLib\Connection\AMQPLazyConnection;
 use ReflectionClass;
 use ReflectionException;
-use VladimirYuldashev\LaravelQueueRabbitMQ\Tests\TestCase as BaseTestCase;
+use Housfy\LaravelQueueRabbitMQ\Tests\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
 {

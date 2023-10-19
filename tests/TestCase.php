@@ -1,12 +1,12 @@
 <?php
 
-namespace VladimirYuldashev\LaravelQueueRabbitMQ\Tests;
+namespace Housfy\LaravelQueueRabbitMQ\Tests;
 
 use Illuminate\Support\Facades\Queue;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 use PhpAmqpLib\Connection\AMQPLazyConnection;
-use VladimirYuldashev\LaravelQueueRabbitMQ\LaravelQueueRabbitMQServiceProvider;
-use VladimirYuldashev\LaravelQueueRabbitMQ\Queue\RabbitMQQueue;
+use Housfy\LaravelQueueRabbitMQ\LaravelQueueRabbitMQServiceProvider;
+use Housfy\LaravelQueueRabbitMQ\Queue\RabbitMQQueue;
 
 abstract class TestCase extends BaseTestCase
 {

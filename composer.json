@@ -1,5 +1,5 @@
 {
-  "name": "vladimir-yuldashev/laravel-queue-rabbitmq",
+  "name": "housfy/laravel-queue-rabbitmq",
   "description": "RabbitMQ driver for Laravel Queue. Supports Laravel Horizon.",
   "license": "MIT",
   "authors": [
@@ -23,21 +23,18 @@
   },
   "autoload": {
     "psr-4": {
-      "VladimirYuldashev\\LaravelQueueRabbitMQ\\": "src/"
+      "Housfy\\LaravelQueueRabbitMQ\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "VladimirYuldashev\\LaravelQueueRabbitMQ\\Tests\\": "tests/"
+      "Housfy\\LaravelQueueRabbitMQ\\Tests\\": "tests/"
     }
   },
   "extra": {
-    "branch-alias": {
-      "dev-master": "11.0-dev"
-    },
     "laravel": {
       "providers": [
-        "VladimirYuldashev\\LaravelQueueRabbitMQ\\LaravelQueueRabbitMQServiceProvider"
+        "Housfy\\LaravelQueueRabbitMQ\\LaravelQueueRabbitMQServiceProvider"
       ]
     }
   },

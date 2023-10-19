@@ -1,6 +1,6 @@
 <?php
 
-namespace VladimirYuldashev\LaravelQueueRabbitMQ\Tests\Mocks;
+namespace Housfy\LaravelQueueRabbitMQ\Tests\Mocks;
 
 use Illuminate\Contracts\Queue\ShouldQueue;
 

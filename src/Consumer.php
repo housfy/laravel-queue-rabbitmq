@@ -1,16 +1,18 @@
 <?php
 
-namespace VladimirYuldashev\LaravelQueueRabbitMQ;
+namespace Housfy\LaravelQueueRabbitMQ;
 
 use Exception;
+use Housfy\LaravelQueueRabbitMQ\Events\RabbitMqJobMemoryExceededEvent;
 use Illuminate\Container\Container;
+use Illuminate\Queue\Events\WorkerStopping;
 use Illuminate\Queue\Worker;
 use Illuminate\Queue\WorkerOptions;
 use PhpAmqpLib\Channel\AMQPChannel;
 use PhpAmqpLib\Exception\AMQPRuntimeException;
 use PhpAmqpLib\Message\AMQPMessage;
 use Throwable;
-use VladimirYuldashev\LaravelQueueRabbitMQ\Queue\RabbitMQQueue;
+use Housfy\LaravelQueueRabbitMQ\Queue\RabbitMQQueue;
 
 class Consumer extends Worker
 {
@@ -203,5 +205,23 @@ class Consumer extends Worker
         $this->channel->basic_cancel($this->consumerTag, false, true);
 
         return parent::stop($status);
+    }
+
+    protected function stopIfNecessary(WorkerOptions $options, $lastRestart, $startTime = 0, $jobsProcessed = 0, $job = null)
+    {
+        if ($this->shouldQuit) {
+            return static::EXIT_SUCCESS;
+        } elseif ($this->memoryExceeded($options->memory)) {
+            $this->events->dispatch(new RabbitMqJobMemoryExceededEvent(static::EXIT_MEMORY_LIMIT, $job));
+            return static::EXIT_MEMORY_LIMIT;
+        } elseif ($this->queueShouldRestart($lastRestart)) {
+            return static::EXIT_SUCCESS;
+        } elseif ($options->stopWhenEmpty && is_null($job)) {
+            return static::EXIT_SUCCESS;
+        } elseif ($options->maxTime && hrtime(true) / 1e9 - $startTime >= $options->maxTime) {
+            return static::EXIT_SUCCESS;
+        } elseif ($options->maxJobs && $jobsProcessed >= $options->maxJobs) {
+            return static::EXIT_SUCCESS;
+        }
     }
 }

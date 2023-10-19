@@ -1,10 +1,12 @@
 <?php
 
-namespace VladimirYuldashev\LaravelQueueRabbitMQ\Console;
+namespace Housfy\LaravelQueueRabbitMQ\Console;
 
+use Illuminate\Contracts\Queue\Job;
 use Illuminate\Queue\Console\WorkCommand;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
-use VladimirYuldashev\LaravelQueueRabbitMQ\Consumer;
+use Housfy\LaravelQueueRabbitMQ\Consumer;
 
 class ConsumeCommand extends WorkCommand
 {
@@ -55,5 +57,25 @@ class ConsumeCommand extends WorkCommand
         }
 
         return Str::slug(config('app.name', 'laravel'), '_').'_'.getmypid();
+    }
+
+    protected function writeStatus(Job $job, $status, $type)
+    {
+        $log_line = '';
+
+        try {
+            $rawData = json_decode($job->getRawBody(), true);
+            $unserialize_command = unserialize($rawData['data']['command']);
+            $log_line = $unserialize_command->getClassName().' @ '.$unserialize_command->getMethodName();
+        } catch (\Exception $exception) {
+            $log_line = $job->resolveName();
+        }
+
+        $this->output->writeln(sprintf(
+            "<{$type}>[%s][%s] %s</{$type}> %s",
+            Carbon::now()->format('Y-m-d H:i:s'),
+            $job->getJobId(),
+            str_pad("{$status}:", 11), $log_line
+        ));
     }
 }

@@ -67,8 +67,13 @@ class ConsumeCommand extends WorkCommand
             $rawData = json_decode($job->getRawBody(), true);
             $unserialize_command = unserialize($rawData['data']['command']);
             $log_line = $unserialize_command->getClassName().' @ '.$unserialize_command->getMethodName();
-        } catch (\Exception $exception) {
+        } catch (\Error $exception) {
             $log_line = $job->resolveName();
+        }
+
+        if (config('app.RABBIT_MQ_SHOW_MEM_USAGE')) {
+            $real_memory = memory_get_usage(true) / 1024 / 1024;
+            $log_line .= sprintf(' [Mem used: %d MB]', $real_memory);
         }
 
         $this->output->writeln(sprintf(

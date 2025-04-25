@@ -31,6 +31,16 @@
             "Housfy\\LaravelQueueRabbitMQ\\Tests\\": "tests/"
         }
     },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "13.0-dev"
+        },
+        "laravel": {
+            "providers": [
+                "Housfy\\LaravelQueueRabbitMQ\\LaravelQueueRabbitMQServiceProvider"
+            ]
+        }
+    },
     "suggest": {
         "ext-pcntl": "Required to use all features of the queue consumer."
     },

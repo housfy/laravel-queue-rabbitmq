@@ -41,7 +41,7 @@ class RabbitMQJob extends Job implements JobContract
         RabbitMQQueue $rabbitmq,
         AMQPMessage $message,
         string $connectionName,
-        string $queue
+        $queue
     ) {
         $this->container = $container;
         $this->rabbitmq = $rabbitmq;

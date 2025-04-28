@@ -36,6 +36,13 @@ class RabbitMQJob extends Job implements JobContract
      */
     protected $decoded;
 
+    /**
+     * The queue name.
+     *
+     * @var string
+     */
+    protected $queue;
+
     public function __construct(
         Container $container,
         RabbitMQQueue $rabbitmq,

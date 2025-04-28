@@ -37,17 +37,20 @@ class RabbitMQJob extends Job implements JobContract
     protected $decoded;
 
     /**
-     * The queue name.
-     *
-     * @var string
+     * The connection name.
      */
-    protected $queue;
+    protected $connectionName;
+
+    /**
+     * The container instance.
+     */
+    protected $container;
 
     public function __construct(
         Container $container,
         RabbitMQQueue $rabbitmq,
         AMQPMessage $message,
-        string $connectionName,
+        $connectionName,
         $queue
     ) {
         $this->container = $container;

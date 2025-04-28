@@ -1,3 +1,7 @@
+## RabbitMQ
+## EL FORK LO HIZO JESUS ORTEGA PARA PODER ENVIAR MENSAJES EN FORMATO JSON Y QUE EL PROYECTO HOUSFY LOGS LO PUDIERA CONSUMIR EN ESE FORMATO ESTANDARD.
+
+
 RabbitMQ Queue driver for Laravel
 ======================
 [![Latest Stable Version](https://poser.pugx.org/vladimir-yuldashev/laravel-queue-rabbitmq/v/stable?format=flat-square)](https://packagist.org/packages/vladimir-yuldashev/laravel-queue-rabbitmq)
